@@ -95,32 +95,35 @@ class TLGenerator():
         # alarm_selected, help_eng_selected, help_ch_selected, help_ja_selected, help_tw_selected, help_hk_selected = 0, 0, 0, 0, 0, 0
         alarm_selected, help_eng_selected, help_ch_selected, help_ja_selected, help_tw_selected = 0, 0, 0, 0, 0
         dog_selected, cat_selected, flush_selected, glass_breaking_selected= 0, 0, 0, 0
-        ###
-        samples_with_label_0 = [(sample, label) for sample, label in zip(self.samples, self.labels) if label == 0]
-        samples_with_other_labels = [(sample, label) for sample, label in zip(self.samples, self.labels) if label != 0]
-        # print("---i", i)
 
-        num_samples = Counter(self.labels).most_common(2)[1][1] # .most_common()[-1][1] #.most_common(1)[0][1]
-        # print(num_samples)
-        if len(samples_with_label_0) >= num_samples:
-            selected_samples_labels = random.sample(samples_with_label_0, num_samples)
-        else:
-            raise ValueError(f"label 為 0 的樣本數不足 {num_samples}")
-        
-        
-        selected_samples, selected_labels = zip(*selected_samples_labels)
-        final_samples = list(selected_samples) + [sample for sample, _ in samples_with_other_labels]
-        final_labels = list(selected_labels) + [label_ for _, label_ in samples_with_other_labels]      
-        
-        combined = list(zip(final_samples, final_labels))
-        # random.seed(1123)  
-        random.shuffle(combined)
-        final_samples, final_labels = zip(*combined)
-        final_samples = list(final_samples)
-        final_labels = list(final_labels)
-        # print(Counter(final_labels))
-        self.data_ran = list(zip(final_samples, final_labels))      
+
         ###
+        # samples_with_label_0 = [(sample, label) for sample, label in zip(self.samples, self.labels) if label == 0]
+        # samples_with_other_labels = [(sample, label) for sample, label in zip(self.samples, self.labels) if label != 0]
+
+        # num_samples = Counter(self.labels).most_common(2)[1][1] # .most_common()[-1][1] #.most_common(1)[0][1]
+        # # print(num_samples)
+        # if len(samples_with_label_0) >= num_samples:
+        #     selected_samples_labels = random.sample(samples_with_label_0, num_samples)
+        # else:
+        #     raise ValueError(f"label 為 0 的樣本數不足 {num_samples}")
+        
+        
+        # selected_samples, selected_labels = zip(*selected_samples_labels)
+        # final_samples = list(selected_samples) + [sample for sample, _ in samples_with_other_labels]
+        # final_labels = list(selected_labels) + [label_ for _, label_ in samples_with_other_labels]      
+        
+        # combined = list(zip(final_samples, final_labels))
+        # # random.seed(1123)  
+        # random.shuffle(combined)
+        # final_samples, final_labels = zip(*combined)
+        # final_samples = list(final_samples)
+        # final_labels = list(final_labels)
+        # # print(Counter(final_labels))
+        # self.data_ran = list(zip(final_samples, final_labels))      
+        ###
+
+
 
         for i in range(self.opt.batch_size):
             # print("i:",i)
@@ -220,6 +223,7 @@ class TLGenerator():
         sounds = np.asarray(sounds);
         labels = np.asarray(labels);
         # print(f"---{label}---{sound.max()},{sound.min()}")
+        
         return sounds, labels;
 
     def preprocess_setup(self):

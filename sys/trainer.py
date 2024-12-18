@@ -41,6 +41,7 @@ class TLTrainer:
         self.sum_acc = 0.0
         # self.trainGen = getTrainGen(opt,classes_dict=classes_dict) 
         self.trainGen = self.getTrainGen_choose()
+        
 
     def getTrainGen_choose(self):
         dataset = np.load(self.opt.Data_npz_path, allow_pickle=True);
@@ -50,7 +51,7 @@ class TLTrainer:
         train_sounds = dataset['sounds_train'][selected_indices]
         labels_train = dataset['labels_train'][selected_indices]
         
-        if self.opt.choose_or_not:
+        if self.opt.choose_or_not: #　重新調整label(順序)
             unique_sorted = sorted(set(labels_train))
             mapping = {original: consecutive for consecutive, original in enumerate(unique_sorted)}
             
